@@ -1,0 +1,2 @@
+# Algobot
+Algorithmic trading bot 
