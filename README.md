@@ -1,2 +1,2 @@
 # Algobot
-Algorithmic trading bot 
+Algorithmic trading bot using python 
