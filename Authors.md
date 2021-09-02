@@ -1,4 +1,4 @@
-- Auther
+- Authers
     -  Alejandro Rojas,
     -  Eesha Patel,
     -  Kevin Morales-Folgar,
