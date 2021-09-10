@@ -1,0 +1,26 @@
+language: python 
+python:
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.9"
+  - "3.9-dev"  # 3.9 development branch
+  - "nightly"  # nightly build
+# command to install dependencies
+install:
+  - pip install -r requirements.txt
+# command to run tests
+script:
+  - pytest
+
+deploy:
+  - provider: codedeploy
+    revision_type: github
+    access_key_id: "AKIAXDKKKG5LBYUENY6F"
+    secret_access_key: "3H8D+W2Mcn8QQ3UdscDne1pSm2RSBe77LBKcn0B6"
+    application: "Your Codedeploy application"
+    deployment_group: "The Deployment group associated with the codedeploy application"
+    region: "Region in which your ec2 instance is."
