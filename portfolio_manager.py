@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
-#from simple_term_menu import TerminalMenu
 import os
 import config
+import sys
 
 class TradeSession:
 
@@ -12,11 +12,13 @@ class TradeSession:
     # Account Connectivity Test
     def connect_api(self):
         account = self.api.get_account()
+        print(account)
         return account
+        
 
     # Checking for stock testing
     def look_up_stock(self):
-        userInput = input("Enter Stock Name Example Apple(AAPL)")
+        userInput = input("Enter Stock Name Example Apple(AAPL): ")
         aapl = self.api.get_barset(userInput, 'day')
         print(aapl.df)
         return aapl.df
@@ -43,13 +45,15 @@ class TradeSession:
 
     def list_all_assets(self):
         # Get a list of all active assets.
-        active_assets =seld. api.list_assets(status='active')
+        active_assets =self. api.list_assets(status='active')
 
         #Filter the assets down to just those on NASDAQ.
         nasdaq_assets = [a for a in active_assets if a.exchange == 'NASDAQ']
         print(nasdaq_assets)
 
-        #check if stock market is open
+        # check if stock market is open
+        # Was getting a error so made its own function for market is open
+    def market_is_open(self):
         api = tradeapi.REST()
         # Check if the market is open now.
         clock = api.get_clock()
@@ -70,28 +74,66 @@ class TradeSession:
         return False
 
     # CLI that selects user bot options
-print("--------------------------------------------------------------------------")
-print("                     Welcome to AlgoBot Project                           ")
-print("--------------------------------------------------------------------------")
-print("               Please select opton you would like to do                   ")
-def CLI():
-    options = ["Account Connectivity", "Get Account Balance", "Look up Stock Price"]
-    terminal_menu = TerminalMenu(options)
-    menu_entry_index = terminal_menu.show()
-    print(f"You have selected {options[menu_entry_index]}!")
-    # check account is connected
-    # Get account Balance
-    # Look up Stock
-    # set stocks
-    # Set buy price
-    # set sell price
+    # It is used to call from the test 
+    # It is connected to the Alpaca API as well 
+def cli():
+    print("--------------------------------------------------------------------------")
+    print("                     Welcome to AlgoBot Project                           ")
+    print("--------------------------------------------------------------------------")
+    print("              Please select number opton you would like to do             ")
+    print("                                                                          ")
+    print("1. Account Information")
+    print("2. Buying Power")
+    print("3. List Assets")
+    print("4. Show Gains and Losses")
+    print("5. Look Up Stock Price")
+    print("6. Exit AlgoBot Project") 
+def menu():
+    cli()
+    ''' Main menu to choose an item ''' 
+    chosen_element = 0
+    chosen_element = input("Enter a selection from 1 to 6: ")
+    if int(chosen_element) == 1:
+        print('Account Information')
+        x.connect_api()
+        menu()
+        # Call Account information Method
+    elif int(chosen_element) == 2:
+        # Call Stock Price Look up methond
+        print('Your buying power is: ')
+        x.show_buying_power()
+        menu()
+    elif int(chosen_element) == 3:
+        # call List of Assets Method
+        print('List of Assets')
+        x.list_all_assets()
+        menu()
+    elif int(chosen_element) == 4:
+        # Call Gains and Losses 
+        print('Your Gains and Losses\n')
+        print("Gain/Loss: ",x.show_gain_loss())
+        menu() # keeps menu tab open to make next selection and not close
+    elif int(chosen_element) == 5:
+        # Look up stock price 
+        # this has user input so the user will have to input stock they would like to look up 
+        # example Tesla = TSLA, Apple = AAPL etc
+        print('Look Up Stock Price')
+        x.look_up_stock()
+        menu()
+        # exits the menu when 6 is selected. 
+    elif int(chosen_element) == 6:
+        print('Goodbye!')
+        sys.exit() 
+    else:
+        print('Sorry, the value entered must be a number from 1 to 5, then try again!')
 
 
 if __name__ == '__main__':
     x = TradeSession()
-    x.show_buying_power()
-    #CLI()
-
+    menu()
+    cli()
+    # for testing purposes
+    #x.show_buying_power()
     #print("Current buying power: ",x.show_buying_power())
     #print("Gain/Loss: ",x.show_gain_loss())
     #x.list_assets()
