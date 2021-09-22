@@ -1,5 +1,6 @@
 from portfolio_manager import *
-import alpaca_trade_api as tradeapi
+# need to be commented out if not the unit test wont pass in github
+# import alpaca_trade_api as tradeapi
 
 x = TradeSession()
 
