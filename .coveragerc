@@ -1,0 +1,20 @@
+[run]
+
+branch = true
+cover_pylib = false
+omit =
+    # omit anything in a .local directory anywhere
+    */.local/*
+    # omit everything in /usr
+    /usr/*
+
+[report]
+
+exclude_lines =
+    if __name__ == .__main__.:
+    .*lambda.*
+
+[html]
+
+title = Algobot Coverage Report
+directory = Coverage Report
