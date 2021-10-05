@@ -139,3 +139,4 @@ if __name__ == '__main__':
     #x.list_assets()
     #x.list_all_assets(api)
     #print(x.is_tradable(api,"AAPL"))
+    # testing aws pipline
