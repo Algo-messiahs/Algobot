@@ -8,12 +8,23 @@ class TradeSession:
     def __init__(self):
         self.api = tradeapi.REST(config.APCA_API_KEY_ID, config.APCA_API_SECRET_KEY,
                             base_url=config.APCA_API_BASE_URL,api_version='v2')
+       # Extract apca_api_key and secret key from databse per user 
+       # going to look like this   
+       # parser = argparse.ArgumentParser()
+       # parser.add_argument('--key-id', help='APCA_API_KEY_ID')
+       # parser.add_argument('--secret-key', help='APCA_API_SECRET_KEY')
+       # parser.add_argument('--base-url')
+       # args = parser.parse_args()
+       # using mysql
+                   
 
     # Account Connectivity Test
     def connect_api(self):
         account = self.api.get_account()
         print(account)
         return account
+    # once user inters api key have them test it 
+    # connect this to front end with descrption "test connect" after user inputs api key and secret key
         
 
     # Checking for stock testing
@@ -22,10 +33,12 @@ class TradeSession:
         aapl = self.api.get_barset(userInput, 'day')
         print(aapl.df)
         return aapl.df
+    # have this communicate to front end and let user input what they want to look up
 
     #ACCOUNT
     def show_buying_power(self):
         account = self.api.get_account()
+        # get api account from databse
 
         # Check if our account is restricted from trading.
         if account.trading_blocked:
@@ -37,6 +50,7 @@ class TradeSession:
 
     def show_gain_loss(self):
         account = self.api.get_account()
+        # get key from databse 
 
         # Check our current balance vs. our balance at the last market close
         balance_change = float(account.equity) - float(account.last_equity)
